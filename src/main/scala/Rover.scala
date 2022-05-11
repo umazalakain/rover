@@ -94,6 +94,7 @@ object Rover {
       case (1 , 0) => Some(E)
       case (0 , -1) => Some(S)
       case (-1 , 0) => Some(W)
+      case _ => None
     }
 
   // FIXME: Only rotates clockwise, not necessarily the least command solution
@@ -113,6 +114,9 @@ object Rover {
   }
   val pathToCommands : Heading => Path => Option[Commands] =
     current => p => sequence(p.sliding(2).map(xs => diffToHeading(xs(0), xs(1))).toList).map(headingsToCommands(current))
+
+
+  // Putting it all together
 
   val showPosition : Position => String = p => s"x : ${p.x}\t y : ${p.y}"
   val showCommand : Command => String = {
